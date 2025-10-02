@@ -20,9 +20,33 @@ namespace ProjetoLoja2dsA.Controllers
             _usuarioRepositorio = usuarioRepositorio;
         }
 
+        [HttpGet]
+        //INTERFACE É UMA REPRESENTAÇAO DO RESULTADO (TELA)
+        public IActionResult Login()
+        {
+            //RETORNA A PAGINA INDEX
+            return View();
+        }
 
-        //INTERFACE QUE REPRESENTA O RESULTADO DA PAGINA 
-        public IActionResult Index()
+        [HttpPost]
+        public IActionResult Login(string email, string senha)
+        {
+            var usuario = _usuarioRepositorio.ObterUsuario(email);
+
+            if (usuario != null && usuario.senha != senha)
+            {
+                return RedirectToAction("Index", "Cliente");
+            }
+            ModelState.AddModelError("", "Email / senha Inválidos");
+
+
+            //RETORNA A PAGINA INDEX
+            return View();
+        }
+
+
+            //INTERFACE QUE REPRESENTA O RESULTADO DA PAGINA 
+            public IActionResult Index()
         {
             return View();
         }
