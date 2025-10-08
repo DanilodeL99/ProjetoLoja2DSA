@@ -33,7 +33,7 @@ namespace ProjetoLoja2dsA.Controllers
         {
             var usuario = _usuarioRepositorio.ObterUsuario(email);
 
-            if (usuario != null && usuario.senha != senha)
+            if (usuario != null && usuario.Senha != senha)
             {
                 return RedirectToAction("Index", "Cliente");
             }
