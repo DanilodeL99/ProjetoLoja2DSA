@@ -1,6 +1,10 @@
 ﻿//IMPORTA AS BIBLIOTECAS QUE SERÃO UTILIZADAS NO PROJETO
 using Microsoft.AspNetCore.Mvc;
 using ProjetoLoja2dsA.Repositorio;
+using ProjetoLoja2dsA.Models;
+
+
+
 //DEFINE O NOME E ONDE A CLASSE USUARIOCONTROLLER ESTÁ LOCALIZADA
 //NAMESPACE AJUDA A ORGANIZAR O CODIGO E EVITAR CONFLITOS
 namespace ProjetoLoja2dsA.Controllers
@@ -50,5 +54,24 @@ namespace ProjetoLoja2dsA.Controllers
         {
             return View();
         }
+
+        //CADASTRO DO USUARIO
+
+        public IActionResult Cadastro() 
+        { 
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Cadastro(Usuario usuario)
+        {
+            if (ModelState.IsValid) 
+            {
+                _usuarioRepositorio.AdicionarUsuario(usuario);
+                return RedirectToAction("Login");
+            }
+            return View(usuario);
+        }
+
     }
 }

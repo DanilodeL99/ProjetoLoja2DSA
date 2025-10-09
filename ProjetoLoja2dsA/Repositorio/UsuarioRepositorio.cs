@@ -9,6 +9,22 @@ namespace ProjetoLoja2dsA.Repositorio
         // Declara um campo privado somente leitura para armazenar a string de conexão com o MySQL.
         private readonly string _conexaoMySQL = configuration.GetConnectionString("ConexaoMySQL");
 
+        //METODO CADASTRAR USUARIO
+
+        public void AdicionarUsuario(Usuario usuario) 
+        {
+            using (var db = new MySqlConnection(_conexaoMySQL))
+            {
+                var cmd = db.CreateCommand();
+                cmd.CommandText = "INSERT INTO Usuario (email, senha) VALUES (@email, @senha)";
+                cmd.Parameters.AddWithValue("@email", usuario.Email);
+                cmd.Parameters.AddWithValue("@senha", usuario.Senha);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+
+        //METODO BUSCAR TODOS OS USUARIOS
 
         public Usuario ObterUsuario(string email)
         {
